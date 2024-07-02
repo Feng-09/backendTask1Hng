@@ -10,6 +10,10 @@ const apiKey = '7495ed6e5f124b00a2c182237240107';
 app.set('trust proxy', true)
 app.use(cors())
 
+app.get('/', (req, res) => {
+    res.send('Hello World')
+})
+
 app.get('/api/hello', async (req, res) => {
     const ipResponse = await axios.get('https://api.ipify.org');
     const clientIp = ipResponse.data
