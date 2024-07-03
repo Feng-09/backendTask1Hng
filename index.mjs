@@ -2,12 +2,10 @@ import express from "express";
 import axios from 'axios';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import ipify from "ipify";
 
 const app = express()
 dotenv.config({path: './.env'})
-const apiKey = '7495ed6e5f124b00a2c182237240107';
-ipify.apiKey = process.env.IPIFY_API_KEY;
+const apiKey = process.env.API_KEY;
 
 app.set('trust proxy', true)
 app.use(cors())
@@ -17,9 +15,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/hello', async (req, res) => {
-    //fetch client ip address from ipify api
-    // const clientIp = await ipify({useIPv6: false});
-
+    //get client ip from request headers
     const clientIp = req.ip;
     //get client weather and city details using ip address
     const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${clientIp}`;
