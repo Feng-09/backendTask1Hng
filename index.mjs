@@ -15,12 +15,13 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/hello', async (req, res) => {
+    //fetch client ip address from ipify api
     const ipResponse = await axios.get('https://api.ipify.org');
     const clientIp = ipResponse.data
+    //get client weather and city details using ip address
     const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${clientIp}`;
     const response = await axios.get(url)
     const weatherData = response.data;
-    console.log(weatherData)
     return res.json({
         client_ip: clientIp,
         location: weatherData.location.name,
@@ -30,3 +31,5 @@ app.get('/api/hello', async (req, res) => {
 
 const port = process.env.PORT || 3000
 app.listen(port)
+
+export default app
