@@ -18,9 +18,9 @@ app.get('/', (req, res) => {
 
 app.get('/api/hello', async (req, res) => {
     //fetch client ip address from ipify api
-    // const ipResponse = await axios.get('https://api.ipify.org');
-    const clientIp = await ipify({useIPv6: false});
-    // const clientIp = ipResponse.data
+    // const clientIp = await ipify({useIPv6: false});
+
+    const clientIp = req.ip;
     //get client weather and city details using ip address
     const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${clientIp}`;
     const response = await axios.get(url)
